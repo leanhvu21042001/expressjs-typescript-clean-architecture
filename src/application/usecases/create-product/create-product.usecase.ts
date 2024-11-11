@@ -1,7 +1,7 @@
-import { ProductGateway } from '~/domain/gateway/product.gateway'
 import { Product } from '~/domain/product/entity/product'
+import { ProductGateway } from '~/domain/product/gateway/product.gateway'
 
-import { UseCase } from '../usecase'
+import { IUseCase } from '../usecase.interface'
 
 export type CreateProductInputDto = {
   name: string
@@ -12,7 +12,7 @@ export type CreateProductOutputDto = {
   id: string
 }
 
-export class CreateProductUseCase implements UseCase<CreateProductInputDto, CreateProductOutputDto> {
+export class CreateProductUseCase implements IUseCase<CreateProductInputDto, CreateProductOutputDto> {
   private constructor(private readonly productGateway: ProductGateway) {}
 
   // builder design pattern

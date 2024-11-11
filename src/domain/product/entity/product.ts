@@ -9,23 +9,8 @@ export type ProductProps = {
 }
 
 export class Product {
+  // make sure constructor and properties are private to prevent direct modification
   private constructor(private readonly props: ProductProps) {}
-
-  public static create(props: Pick<ProductProps, 'name' | 'price'>): Product {
-    return new Product({
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: null,
-      id: crypto.randomUUID().toString(),
-      name: props.name,
-      price: props.price,
-      quantity: 0
-    })
-  }
-
-  public static with(props: ProductProps) {
-    return new Product(props)
-  }
 
   public get id() {
     return this.props.id
@@ -53,6 +38,22 @@ export class Product {
 
   public get quantity() {
     return this.props.quantity
+  }
+
+  public static create(props: Pick<ProductProps, 'name' | 'price'>): Product {
+    return new Product({
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      id: crypto.randomUUID().toString(),
+      name: props.name,
+      price: props.price,
+      quantity: 0
+    })
+  }
+
+  public static with(props: ProductProps) {
+    return new Product(props)
   }
 
   public update(props: Partial<ProductProps>) {

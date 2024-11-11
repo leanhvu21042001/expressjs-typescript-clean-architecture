@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
-import { ProductGateway } from '~/domain/gateway/product.gateway'
 import { Product } from '~/domain/product/entity/product'
+import { ProductGateway } from '~/domain/product/gateway/product.gateway'
 
 export class ProductRepositoryPrisma implements ProductGateway {
   private constructor(private readonly prismaClient: PrismaClient) {}
