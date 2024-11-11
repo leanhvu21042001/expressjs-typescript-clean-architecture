@@ -26,9 +26,7 @@ async function main() {
   //
   const port = 8000
   apiExpress.start(port)
-  await fastifyApi.start(port + 1)
+  fastifyApi.start(port + 1)
 }
 
-;(async () => {
-  await main()
-})()
+main()

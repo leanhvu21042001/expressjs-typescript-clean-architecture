@@ -15,14 +15,16 @@ export class ApiFastify implements IApi {
     return new ApiFastify(routes)
   }
 
-  public async start(port: number): Promise<void> {
-    try {
-      await this.app.listen({ port })
-      this.listRoutes()
-    } catch (error) {
-      this.app.log.error(error)
-      process.exit(1)
-    }
+  public start(port: number): void {
+    this.app
+      .listen({ port })
+      .then(() => {
+        this.listRoutes()
+      })
+      .catch((error) => {
+        this.app.log.error(error)
+        process.exit(1)
+      })
   }
 
   private addRoutes(routes: IRouteFastify[]) {
