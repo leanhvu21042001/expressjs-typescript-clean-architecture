@@ -1,16 +1,17 @@
-export type ProductProps = {
+export type ProductEntityProps = {
   createdAt: Date
   updatedAt: Date
-  deletedAt: Date | null
+  deletedAt?: Date | null
   id: string
+
   name: string
   price: number
   quantity: number
 }
 
-export class Product {
+export class ProductEntity {
   // make sure constructor and properties are private to prevent direct modification
-  private constructor(private readonly props: ProductProps) {}
+  private constructor(private readonly props: ProductEntityProps) {}
 
   public get id() {
     return this.props.id
@@ -40,8 +41,8 @@ export class Product {
     return this.props.quantity
   }
 
-  public static create(props: Pick<ProductProps, 'name' | 'price'>): Product {
-    return new Product({
+  public static create(props: Pick<ProductEntityProps, 'name' | 'price'>): ProductEntity {
+    return new ProductEntity({
       createdAt: new Date(),
       updatedAt: new Date(),
       deletedAt: null,
@@ -52,11 +53,11 @@ export class Product {
     })
   }
 
-  public static with(props: ProductProps) {
-    return new Product(props)
+  public static with(props: ProductEntityProps) {
+    return new ProductEntity(props)
   }
 
-  public update(props: Partial<ProductProps>) {
+  public update(props: Partial<ProductEntityProps>) {
     this.props.updatedAt = new Date()
     Object.assign(this.props, props)
   }

@@ -3,6 +3,13 @@ import express, { Express } from 'express'
 import { IApi } from '../api.interface'
 import { IRouteExpress } from './routes/route.express.interface'
 
+type TApRouterStack = {
+  route: {
+    path: string
+    stack: { method: string }[]
+  }
+}
+
 export class ApiExpress implements IApi {
   private app: Express
 
@@ -35,9 +42,9 @@ export class ApiExpress implements IApi {
   }
 
   private listRoutes() {
-    const routes = this.app._router.stack
-      .filter((route: any) => route.route)
-      .map((route: any) => {
+    const routes = (this.app._router.stack as TApRouterStack[])
+      .filter((route) => route.route)
+      .map((route) => {
         return {
           path: route.route.path,
           method: route.route.stack[0].method.toUpperCase()

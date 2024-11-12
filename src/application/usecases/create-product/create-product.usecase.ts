@@ -1,4 +1,4 @@
-import { Product } from '~/domain/product/entity/product'
+import { ProductEntity } from '~/domain/product/entity/product'
 import { ProductGateway } from '~/domain/product/gateway/product.gateway'
 
 import { IUseCase } from '../usecase.interface'
@@ -21,7 +21,7 @@ export class CreateProductUseCase implements IUseCase<CreateProductInputDto, Cre
   }
 
   async execute(input: CreateProductInputDto): Promise<CreateProductOutputDto> {
-    const product = Product.create({
+    const product = ProductEntity.create({
       name: input.name,
       price: input.price
     })
@@ -32,7 +32,7 @@ export class CreateProductUseCase implements IUseCase<CreateProductInputDto, Cre
     return output
   }
 
-  private presentOutput(product: Product): CreateProductOutputDto {
+  private presentOutput(product: ProductEntity): CreateProductOutputDto {
     const output: CreateProductOutputDto = {
       id: product.id
     }

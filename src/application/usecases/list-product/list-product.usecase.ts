@@ -1,4 +1,4 @@
-import { Product } from '~/domain/product/entity/product'
+import { ProductEntity } from '~/domain/product/entity/product'
 import { ProductGateway } from '~/domain/product/gateway/product.gateway'
 
 import { IUseCase } from '../usecase.interface'
@@ -29,7 +29,7 @@ export class ListProductUseCase implements IUseCase<ListProductInputDto, ListPro
     return output
   }
 
-  private presentOutput(products: Product[]): ListProductOutputDto {
+  private presentOutput(products: ProductEntity[]): ListProductOutputDto {
     return {
       products: products.map((product) => ({
         id: product.id,

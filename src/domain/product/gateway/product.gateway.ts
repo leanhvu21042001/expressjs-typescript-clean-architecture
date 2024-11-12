@@ -1,8 +1,8 @@
-import { Product } from '../entity/product'
+import { ProductEntity } from '../entity/product'
 
 export interface ProductGateway {
-  save(product: Product): Promise<void>
-  list(): Promise<Product[]>
-  delete(id: Product['id']): Promise<void>
-  update(product: Product): Promise<Product>
+  save(product: ProductEntity): Promise<void>
+  list(): Promise<ProductEntity[]>
+  delete(id: ProductEntity['id']): Promise<void>
+  update(product: ProductEntity): Promise<ProductEntity>
 }

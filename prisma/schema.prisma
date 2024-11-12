@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite" 
+  provider = "sqlite"
   url      = env("DATABASE_URL_SQLITE_PRISMA")
 }
 
@@ -24,4 +24,35 @@ model Product {
   deletedAt DateTime?
 
   @@map("products")
+}
+
+model Address {
+  id        String    @id
+  street    String
+  city      String
+  state     String
+  zip       String
+  country   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  User      User[]
+
+  @@map("addresses")
+}
+
+model User {
+  id        String    @id
+  age       Int
+  name      String
+  phone     String
+  email     String
+  gender    String
+  address   Address?  @relation(fields: [addressId], references: [id])
+  addressId String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("users")
 }

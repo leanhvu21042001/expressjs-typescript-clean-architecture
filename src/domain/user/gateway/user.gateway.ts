@@ -1,9 +1,9 @@
-import { User } from '../entity/user'
+import { UserEntity } from '../entity/user.entity'
 
 export interface UserGateway {
-  save(user: User): Promise<User['id']>
-  findById(id: string): Promise<User | undefined>
-  findAll(): Promise<User[]>
+  save(user: UserEntity): Promise<UserEntity>
+  findById(id: string): Promise<UserEntity | undefined>
+  findAll(): Promise<UserEntity[]>
   delete(id: string): Promise<void>
-  update(user: User): Promise<void>
+  update(user: UserEntity): Promise<void>
 }

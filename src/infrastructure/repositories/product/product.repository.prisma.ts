@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import { Product } from '~/domain/product/entity/product'
+import { ProductEntity } from '~/domain/product/entity/product'
 import { ProductGateway } from '~/domain/product/gateway/product.gateway'
 
 export class ProductRepositoryPrisma implements ProductGateway {
@@ -10,11 +10,11 @@ export class ProductRepositoryPrisma implements ProductGateway {
     return new ProductRepositoryPrisma(prismaClient)
   }
 
-  public async delete(id: Product['id']) {
+  public async delete(id: ProductEntity['id']) {
     await this.prismaClient.product.delete({ where: { id: id } })
   }
 
-  public async update(product: Product): Promise<Product> {
+  public async update(product: ProductEntity): Promise<ProductEntity> {
     const updatedProduct = await this.prismaClient.product.update({
       where: { id: product.id },
       data: {
@@ -24,7 +24,7 @@ export class ProductRepositoryPrisma implements ProductGateway {
       }
     })
 
-    return Product.with({
+    return ProductEntity.with({
       id: updatedProduct.id,
       name: updatedProduct.name,
       price: updatedProduct.price,
@@ -35,7 +35,7 @@ export class ProductRepositoryPrisma implements ProductGateway {
     })
   }
 
-  public async save(product: Product): Promise<void> {
+  public async save(product: ProductEntity): Promise<void> {
     await this.prismaClient.product.create({
       data: {
         id: product.id,
@@ -45,10 +45,10 @@ export class ProductRepositoryPrisma implements ProductGateway {
       }
     })
   }
-  public async list(): Promise<Product[]> {
+  public async list(): Promise<ProductEntity[]> {
     const products = await this.prismaClient.product.findMany()
     const productList = products.map((productItem) => {
-      const product = Product.with({
+      const product = ProductEntity.with({
         id: productItem.id,
         name: productItem.name,
         price: productItem.price,

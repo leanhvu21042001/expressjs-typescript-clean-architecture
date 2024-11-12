@@ -1,5 +1,5 @@
-import { Address } from '~/domain/address/entity/address'
-import { User } from '~/domain/user/entity/user'
+import { AddressEntity } from '~/domain/address/entity/address'
+import { UserEntity } from '~/domain/user/entity/user.entity'
 import { UserGateway } from '~/domain/user/gateway/user.gateway'
 
 import { IUseCase } from '../usecase.interface'
@@ -29,7 +29,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
   }
 
   async execute(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
-    const addressEntity = Address.create({
+    const addressEntity = AddressEntity.create({
       country: input.country,
       city: input.city,
       state: input.state,
@@ -37,7 +37,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
       zip: input.zip
     })
 
-    const userEntity = User.create({
+    const userEntity = UserEntity.create({
       name: input.name,
       email: input.email,
       address: addressEntity,
@@ -51,7 +51,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
     return output
   }
 
-  private presentOutput(user: User): CreateUserOutputDto {
+  private presentOutput(user: UserEntity): CreateUserOutputDto {
     const output = {
       id: user.id
     }

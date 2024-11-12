@@ -1,4 +1,7 @@
-export type AddressProps = {
+export type AddressEntityProps = {
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date | null
   id: string
   street: string
   city: string
@@ -7,22 +10,27 @@ export type AddressProps = {
   country: string
 }
 
-export class Address {
-  constructor(private readonly props: AddressProps) {}
+export class AddressEntity {
+  constructor(private readonly props: AddressEntityProps) {}
 
-  public static create(props: Pick<AddressProps, 'street' | 'city' | 'state' | 'zip' | 'country'>): Address {
-    return new Address({
+  public static create(
+    props: Pick<AddressEntityProps, 'street' | 'city' | 'state' | 'zip' | 'country'>
+  ): AddressEntity {
+    return new AddressEntity({
       id: crypto.randomUUID().toString(),
       street: props.street,
       city: props.city,
       state: props.state,
       zip: props.zip,
-      country: props.country
+      country: props.country,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null
     })
   }
 
-  public static with(props: AddressProps) {
-    return new Address(props)
+  public static with(props: AddressEntityProps) {
+    return new AddressEntity(props)
   }
 
   public get id() {
@@ -47,5 +55,17 @@ export class Address {
 
   public get country() {
     return this.props.country
+  }
+
+  public get updatedAt() {
+    return this.props.updatedAt
+  }
+
+  public get createdAt() {
+    return this.props.createdAt
+  }
+
+  public get deletedAt() {
+    return this.props.deletedAt
   }
 }
