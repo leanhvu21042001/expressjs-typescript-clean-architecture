@@ -3,7 +3,6 @@ export type ProductEntityProps = {
   updatedAt: Date
   deletedAt?: Date | null
   id: string
-
   name: string
   price: number
   quantity: number

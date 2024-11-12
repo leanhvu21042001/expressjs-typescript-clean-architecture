@@ -6,6 +6,24 @@ import { ProductGateway } from '~/domain/product/gateway/product.gateway'
 export class ProductRepositoryPrisma implements ProductGateway {
   private constructor(private readonly prismaClient: PrismaClient) {}
 
+  async findById(id: ProductEntity['id']): Promise<ProductEntity | undefined> {
+    const product = await this.prismaClient.product.findFirst({
+      where: { id: id }
+    })
+
+    return product
+      ? ProductEntity.with({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: product.quantity,
+          createdAt: product.createdAt,
+          updatedAt: product.updatedAt,
+          deletedAt: product.deletedAt
+        })
+      : undefined
+  }
+
   public static create(prismaClient: PrismaClient) {
     return new ProductRepositoryPrisma(prismaClient)
   }

@@ -1,4 +1,3 @@
-import { AddressGateway } from '~/domain/address/gateway/address.gateway'
 import { UserEntity } from '~/domain/user/entity/user.entity'
 import { UserGateway } from '~/domain/user/gateway/user.gateway'
 
@@ -22,19 +21,17 @@ export type GetUserByIdOutputDto = {
 }
 
 export class GetUserByIdUseCase implements IUseCase<GetUserByIdInputDto, GetUserByIdOutputDto> {
-  constructor(
-    private readonly userGateway: UserGateway,
-    private readonly addressGateway: AddressGateway
-  ) {}
+  constructor(private readonly userGateway: UserGateway) {}
 
-  public static create(userGateway: UserGateway, addressGateway: AddressGateway): GetUserByIdUseCase {
-    return new GetUserByIdUseCase(userGateway, addressGateway)
+  public static create(userGateway: UserGateway): GetUserByIdUseCase {
+    return new GetUserByIdUseCase(userGateway)
   }
 
   async execute(input: GetUserByIdInputDto): Promise<GetUserByIdOutputDto> {
     const user = await this.userGateway.findById(input.id)
     if (!user) throw new Error('User not found')
 
+    console.log(user)
     const output = this.presentOutput(user)
 
     return output

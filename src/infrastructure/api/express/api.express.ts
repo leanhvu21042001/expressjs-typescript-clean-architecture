@@ -1,4 +1,4 @@
-import express, { Express } from 'express'
+import express, { Express, NextFunction } from 'express'
 
 import { IApi } from '../api.interface'
 import { IRouteExpress } from './routes/route.express.interface'
@@ -17,7 +17,18 @@ export class ApiExpress implements IApi {
     this.app = express()
 
     this.app.use(express.json())
+    this.app.use(express.urlencoded({ extended: true }))
+
     this.addRoutes(routes)
+
+    this.app.use('*', (req, res, next) => {
+      next(new Error('Not found'))
+    })
+
+    this.app.use((err: Error, req: express.Request, res: express.Response) => {
+      res.status(404).json({ message: err.message })
+      return
+    })
   }
 
   public static create(routes: IRouteExpress[]) {
@@ -36,7 +47,6 @@ export class ApiExpress implements IApi {
 
   start(port: number): void {
     this.app.listen(port, () => {
-      console.log(`Server is running on port ${port}`)
       this.listRoutes()
     })
   }
