@@ -10,7 +10,7 @@ export default [
   ...tseslint.configs.recommended,
   {
     plugins: {
-      prettier: eslintPluginPrettier
+      prettier: eslintPluginPrettier,
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
@@ -20,16 +20,20 @@ export default [
         {
           arrowParens: 'always',
           semi: false,
-          trailingComma: 'none',
+          trailingComma: 'all',
           tabWidth: 2,
           endOfLine: 'auto',
           useTabs: false,
           singleQuote: true,
           printWidth: 120,
-          jsxSingleQuote: true
-        }
-      ]
+          importOrderParserPlugins: ['typescript', 'decorators-legacy'],
+          importOrder: ['^(express|node?/?([a-zA-Z/]*))$', '<THIRD_PARTY_MODULES>', '^~/(.*)$', '^[./]'],
+          importOrderSeparation: true,
+          importOrderSortSpecifiers: true,
+          plugins: ['@trivago/prettier-plugin-sort-imports'],
+        },
+      ],
     },
-    ignores: ['**/node_modules/', '**/dist/']
-  }
+    ignores: ['**/node_modules/', '**/dist/'],
+  },
 ]

@@ -19,7 +19,7 @@ export class GetUserByIdRouteExpress implements IRouteExpress {
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
-    private readonly userByIdService: GetUserByIdUseCase
+    private readonly userByIdService: GetUserByIdUseCase,
   ) {}
 
   public static create(userByIdService: GetUserByIdUseCase): GetUserByIdRouteExpress {
@@ -51,9 +51,9 @@ export class GetUserByIdRouteExpress implements IRouteExpress {
         address: {
           street: user.address.street,
           city: user.address.city,
-          state: user.address.state
-        }
-      }
+          state: user.address.state,
+        },
+      },
     }
 
     return response

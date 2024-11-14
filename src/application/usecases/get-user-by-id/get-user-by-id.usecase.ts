@@ -45,10 +45,10 @@ export class GetUserByIdUseCase implements IUseCase<GetUserByIdInputDto, GetUser
       address: {
         street: user?.address?.street || '',
         city: user?.address?.city || '',
-        state: user?.address?.state || ''
+        state: user?.address?.state || '',
       },
       createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      updatedAt: user.updatedAt,
     }
   }
 }

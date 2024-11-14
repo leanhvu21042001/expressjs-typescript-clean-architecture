@@ -1,6 +1,6 @@
 import {
   CreateProductInputDto,
-  CreateProductUseCase
+  CreateProductUseCase,
 } from '~/application/usecases/create-product/create-product.usecase'
 
 import { HttpMethod, IRouteExpress, TExpressRequest, TExpressResponse } from '../route.express.interface'
@@ -12,7 +12,7 @@ export class CreateProductRouteExpress implements IRouteExpress {
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
-    private readonly createProductService: CreateProductUseCase
+    private readonly createProductService: CreateProductUseCase,
   ) {}
 
   public static create(createProductService: CreateProductUseCase) {
@@ -24,7 +24,7 @@ export class CreateProductRouteExpress implements IRouteExpress {
 
       const input: CreateProductInputDto = {
         name,
-        price
+        price,
       }
 
       const output: CreateProductResponseDto = await this.createProductService.execute(input)

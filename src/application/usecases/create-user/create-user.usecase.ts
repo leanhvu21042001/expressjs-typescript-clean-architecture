@@ -34,7 +34,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
       city: input.city,
       state: input.state,
       street: input.street,
-      zip: input.zip
+      zip: input.zip,
     })
 
     const userEntity = UserEntity.create({
@@ -42,7 +42,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
       email: input.email,
       address: addressEntity,
       phone: input.phone,
-      age: input.age
+      age: input.age,
     })
 
     await this.userGateway.save(userEntity)
@@ -53,7 +53,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
 
   private presentOutput(user: UserEntity): CreateUserOutputDto {
     const output = {
-      id: user.id
+      id: user.id,
     }
 
     return output

@@ -24,10 +24,9 @@ export class LoginUseCase implements IUseCase<LoginInputDto, LoginOutputDto> {
     // const output = this.presentOutput(outputDto)
     // return output
 
-
     const output = this.presentOutput({
       accessToken: 'accessToken',
-      refreshToken: 'refreshToken'
+      refreshToken: 'refreshToken',
     })
 
     return output

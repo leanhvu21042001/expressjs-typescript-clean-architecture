@@ -57,7 +57,7 @@ export class ApiExpress implements IApi {
       .map((route) => {
         return {
           path: route.route.path,
-          method: route.route.stack[0].method.toUpperCase()
+          method: route.route.stack[0].method.toUpperCase(),
         }
       })
 

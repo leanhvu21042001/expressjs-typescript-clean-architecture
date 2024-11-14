@@ -23,7 +23,7 @@ export class CreateProductUseCase implements IUseCase<CreateProductInputDto, Cre
   async execute(input: CreateProductInputDto): Promise<CreateProductOutputDto> {
     const product = ProductEntity.create({
       name: input.name,
-      price: input.price
+      price: input.price,
     })
 
     await this.productGateway.save(product)
@@ -34,7 +34,7 @@ export class CreateProductUseCase implements IUseCase<CreateProductInputDto, Cre
 
   private presentOutput(product: ProductEntity): CreateProductOutputDto {
     const output: CreateProductOutputDto = {
-      id: product.id
+      id: product.id,
     }
 
     return output

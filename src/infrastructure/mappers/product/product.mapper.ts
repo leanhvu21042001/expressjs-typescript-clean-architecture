@@ -11,7 +11,7 @@ export class ProductMapper {
       updatedAt: prismaProduct.updatedAt,
       deletedAt: prismaProduct.deletedAt,
       price: prismaProduct.price,
-      quantity: prismaProduct.quantity
+      quantity: prismaProduct.quantity,
     })
   }
 
@@ -23,7 +23,7 @@ export class ProductMapper {
       quantity: productEntity.quantity,
       createdAt: productEntity.createdAt,
       updatedAt: productEntity.updatedAt,
-      deletedAt: productEntity.deletedAt ? new Date(productEntity.deletedAt) : null
+      deletedAt: productEntity.deletedAt ? new Date(productEntity.deletedAt) : null,
     }
   }
 }

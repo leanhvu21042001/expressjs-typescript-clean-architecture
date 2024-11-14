@@ -48,7 +48,7 @@ export class ProductEntity {
       id: crypto.randomUUID().toString(),
       name: props.name,
       price: props.price,
-      quantity: 0
+      quantity: 0,
     })
   }
 

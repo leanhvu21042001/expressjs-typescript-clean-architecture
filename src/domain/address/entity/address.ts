@@ -14,7 +14,7 @@ export class AddressEntity {
   constructor(private readonly props: AddressEntityProps) {}
 
   public static create(
-    props: Pick<AddressEntityProps, 'street' | 'city' | 'state' | 'zip' | 'country'>
+    props: Pick<AddressEntityProps, 'street' | 'city' | 'state' | 'zip' | 'country'>,
   ): AddressEntity {
     return new AddressEntity({
       id: crypto.randomUUID().toString(),
@@ -25,7 +25,7 @@ export class AddressEntity {
       country: props.country,
       createdAt: new Date(),
       updatedAt: new Date(),
-      deletedAt: null
+      deletedAt: null,
     })
   }
 

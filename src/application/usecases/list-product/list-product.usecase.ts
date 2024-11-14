@@ -35,8 +35,8 @@ export class ListProductUseCase implements IUseCase<ListProductInputDto, ListPro
         id: product.id,
         name: product.name,
         price: product.price,
-        quantity: product.quantity
-      }))
+        quantity: product.quantity,
+      })),
     }
   }
 }

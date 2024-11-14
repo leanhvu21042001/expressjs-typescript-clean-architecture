@@ -14,7 +14,7 @@ export class ListProductRouteFastify implements IRouteFastify {
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
-    private readonly listProductService: ListProductUseCase
+    private readonly listProductService: ListProductUseCase,
   ) {}
 
   public static create(listProductService: ListProductUseCase): ListProductRouteFastify {
@@ -42,9 +42,9 @@ export class ListProductRouteFastify implements IRouteFastify {
         return {
           id: productItem.id,
           name: productItem.name,
-          price: productItem.price
+          price: productItem.price,
         }
-      })
+      }),
     }
 
     return response

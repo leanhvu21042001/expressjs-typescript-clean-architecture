@@ -13,7 +13,7 @@ export class AddressMapper {
       city: prismaAddress.city,
       state: prismaAddress.state,
       zip: prismaAddress.zip,
-      country: prismaAddress.country
+      country: prismaAddress.country,
     })
   }
   public static toPersistent(addressEntity: AddressEntity): PrimaAddress {
@@ -26,7 +26,7 @@ export class AddressMapper {
       street: addressEntity.street,
       city: addressEntity.city,
       state: addressEntity.state,
-      zip: addressEntity.zip
+      zip: addressEntity.zip,
     }
   }
 }

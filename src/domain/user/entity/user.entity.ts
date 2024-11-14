@@ -67,7 +67,7 @@ export class UserEntity {
       email: props.email,
       createdAt: new Date(),
       updatedAt: new Date(),
-      deletedAt: null
+      deletedAt: null,
     })
   }
 

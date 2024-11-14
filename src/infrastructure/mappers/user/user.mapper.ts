@@ -16,7 +16,7 @@ export class UserMapper {
       phone: prismaUser.phone,
       email: prismaUser.email,
       gender: prismaUser.gender,
-      address: prismaUser.address ? AddressMapper.toDomain(prismaUser.address) : null
+      address: prismaUser.address ? AddressMapper.toDomain(prismaUser.address) : null,
     })
   }
 
@@ -31,7 +31,7 @@ export class UserMapper {
       phone: user.phone,
       email: user.email,
       gender: user.gender,
-      addressId: user?.address?.id || null
+      addressId: user?.address?.id || null,
     }
   }
 }

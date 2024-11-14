@@ -15,9 +15,9 @@ export class UserRepositoryPrisma implements UserGateway {
     const dataSave = UserMapper.toPersistent(user)
     const output = await this.prismaClient.user.create({
       include: {
-        address: true
+        address: true,
       },
-      data: dataSave
+      data: dataSave,
     })
 
     return UserMapper.toDomain({ ...output, address: output.address ?? undefined })
@@ -25,9 +25,9 @@ export class UserRepositoryPrisma implements UserGateway {
   async findById(id: string): Promise<UserEntity | undefined> {
     const output = await this.prismaClient.user.findUnique({
       include: {
-        address: true
+        address: true,
       },
-      where: { id }
+      where: { id },
     })
 
     return output ? UserMapper.toDomain({ ...output, address: output.address ?? undefined }) : undefined
@@ -35,8 +35,8 @@ export class UserRepositoryPrisma implements UserGateway {
   async findAll(): Promise<UserEntity[]> {
     const output = await this.prismaClient.user.findMany({
       include: {
-        address: true
-      }
+        address: true,
+      },
     })
 
     return output.length
@@ -45,13 +45,13 @@ export class UserRepositoryPrisma implements UserGateway {
   }
   async delete(id: string): Promise<void> {
     await this.prismaClient.user.delete({
-      where: { id }
+      where: { id },
     })
   }
   async update(user: UserEntity): Promise<void> {
     await this.prismaClient.user.update({
       data: UserMapper.toPersistent(user),
-      where: { id: user.id }
+      where: { id: user.id },
     })
   }
 }

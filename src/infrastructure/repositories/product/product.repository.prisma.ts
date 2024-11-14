@@ -13,7 +13,7 @@ export class ProductRepositoryPrisma implements ProductGateway {
 
   async findById(id: ProductEntity['id']): Promise<ProductEntity | undefined> {
     const product = await this.prismaClient.product.findFirst({
-      where: { id }
+      where: { id },
     })
 
     return product ? ProductMapper.toDomain(product) : undefined
@@ -29,8 +29,8 @@ export class ProductRepositoryPrisma implements ProductGateway {
       data: {
         name: product.name,
         price: product.price,
-        quantity: product.quantity
-      }
+        quantity: product.quantity,
+      },
     })
 
     return ProductMapper.toDomain(updatedProduct)
@@ -42,8 +42,8 @@ export class ProductRepositoryPrisma implements ProductGateway {
         id: product.id,
         name: product.name,
         price: product.price,
-        quantity: product.quantity
-      }
+        quantity: product.quantity,
+      },
     })
   }
   public async list(): Promise<ProductEntity[]> {
