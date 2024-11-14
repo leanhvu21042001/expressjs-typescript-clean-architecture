@@ -4,7 +4,7 @@ import { AddressEntity } from '~/domain/address/entity/address'
 
 export class AddressMapper {
   public static toDomain(prismaAddress: PrimaAddress): AddressEntity {
-    return new AddressEntity({
+    return AddressEntity.with({
       createdAt: prismaAddress.createdAt,
       updatedAt: prismaAddress.updatedAt,
       deletedAt: prismaAddress.deletedAt,
