@@ -17,6 +17,8 @@ export class UserMapper {
       email: prismaUser.email,
       gender: prismaUser.gender,
       address: prismaUser.address ? AddressMapper.toDomain(prismaUser.address) : null,
+      username: prismaUser.username,
+      password: prismaUser.password,
     })
   }
 
@@ -32,6 +34,8 @@ export class UserMapper {
       email: user.email,
       gender: user.gender,
       addressId: user?.address?.id || null,
+      username: user.username,
+      password: user.password,
     }
   }
 }

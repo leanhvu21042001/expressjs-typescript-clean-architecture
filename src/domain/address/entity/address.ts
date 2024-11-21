@@ -1,7 +1,7 @@
 export type AddressEntityProps = {
   createdAt: Date
   updatedAt: Date
-  deletedAt?: Date | null
+  deletedAt: Date | null
   id: string
   street: string
   city: string

@@ -10,12 +10,14 @@ export type CreateUserInputDto = {
   state: string
   street: string
   zip: string
-
   name: string
   email: string
   address: string
   phone: string
   age: number
+  gender: string
+  username: string
+  password: string
 }
 export type CreateUserOutputDto = {
   id: string
@@ -43,6 +45,9 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
       address: addressEntity,
       phone: input.phone,
       age: input.age,
+      gender: input.gender,
+      username: input.username,
+      password: input.password,
     })
 
     await this.userGateway.save(userEntity)

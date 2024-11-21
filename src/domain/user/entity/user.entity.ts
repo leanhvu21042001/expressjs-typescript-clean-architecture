@@ -3,14 +3,16 @@ import { AddressEntity } from '~/domain/address/entity/address'
 export type UserEntityProps = {
   createdAt: Date
   updatedAt: Date
-  deletedAt?: Date | null
+  deletedAt: Date | null
   id: string
   age: number
   name: string
   phone: string
   email: string
   gender: string
-  address?: AddressEntity | null
+  address: AddressEntity | null
+  username: string
+  password: string
 }
 
 export class UserEntity {
@@ -44,6 +46,14 @@ export class UserEntity {
     return this.props.email
   }
 
+  get username(): string {
+    return this.props.username
+  }
+
+  get password(): string {
+    return this.props.password
+  }
+
   public get updatedAt() {
     return this.props.updatedAt
   }
@@ -56,7 +66,9 @@ export class UserEntity {
     return this.props.deletedAt
   }
 
-  static create(props: Pick<UserEntityProps, 'age' | 'name' | 'phone' | 'address' | 'email' | 'gender'>): UserEntity {
+  static create(
+    props: Pick<UserEntityProps, 'age' | 'name' | 'phone' | 'address' | 'email' | 'gender' | 'username' | 'password'>,
+  ): UserEntity {
     return new UserEntity({
       id: crypto.randomUUID().toString(),
       age: props.age,
@@ -68,6 +80,8 @@ export class UserEntity {
       createdAt: new Date(),
       updatedAt: new Date(),
       deletedAt: null,
+      username: props.username,
+      password: props.password,
     })
   }
 

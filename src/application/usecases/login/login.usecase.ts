@@ -1,4 +1,7 @@
 import { UserGateway } from '~/domain/user/gateway/user.gateway'
+import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
+import { comparePassword } from '~/shared/hash-password'
+import { generateToken } from '~/shared/jwt-auth.shared'
 
 import { IUseCase } from '../usecase.interface'
 
@@ -20,13 +23,27 @@ export class LoginUseCase implements IUseCase<LoginInputDto, LoginOutputDto> {
   }
 
   async execute(input: LoginInputDto): Promise<LoginOutputDto> {
-    const outputDto = await this.userGateway.findById(input.username)
-    // const output = this.presentOutput(outputDto)
-    // return output
+    const userFound = await this.userGateway.findByUsername(input.username)
+
+    if (!userFound) {
+      throw new BadRequestException('Invalid username or password')
+    }
+
+    const match = await comparePassword(input.password, userFound.password)
+
+    if (!match) {
+      throw new BadRequestException('Invalid username or password')
+    }
+
+    const payload = {
+      id: String(userFound.id),
+    }
+    const accessToken = generateToken(payload, 'access')
+    const refreshToken = generateToken(payload, 'refresh')
 
     const output = this.presentOutput({
-      accessToken: 'accessToken',
-      refreshToken: 'refreshToken',
+      accessToken,
+      refreshToken,
     })
 
     return output
