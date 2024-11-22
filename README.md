@@ -6,7 +6,8 @@
 
 ## Run project
 
-> Copy `.env.example` to `.env` and fill in the necessary environment variables.
+> For Production: Copy `.env.example` to `.env` and fill in the necessary environment variables.
+> For Development: Copy `.env.example` to `.env.development` and fill in the necessary environment variables.
 
 ```
 # install packages

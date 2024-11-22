@@ -1,0 +1,12 @@
+model RolePermission {
+    roleId       Int
+    permissionId Int
+    resourceId   Int
+
+    role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+    permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+    resource   Resource   @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+    @@id([roleId, permissionId, resourceId])
+    @@map("role_permissions")
+}
