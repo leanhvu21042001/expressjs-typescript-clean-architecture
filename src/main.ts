@@ -6,14 +6,14 @@ import { CreateProductRouteExpress } from './infrastructure/api/express/routes/p
 import { GetUserByIdRouteExpress } from './infrastructure/api/express/routes/user/get-user-by-id.express.route'
 import { ApiFastify } from './infrastructure/api/fastify/api.fastify'
 import { ListProductRouteFastify } from './infrastructure/api/fastify/routes/product/list-product.fastify.route'
-import { prisma } from './infrastructure/database/prisma/prisma'
-import { ProductRepositoryPrisma } from './infrastructure/repositories/product/product.repository.prisma'
-import { UserRepositoryPrisma } from './infrastructure/repositories/user/user.repository.prisma'
+import { prisma } from './infrastructure/databases/prisma/prisma'
+import { ProductPrismaRepositoryImpl } from './infrastructure/repositories-impl/prisma-repository/product-prisma-repository.impl'
+import { UserPrismaRepositoryImpl } from './infrastructure/repositories-impl/prisma-repository/user-prisma-repository.impl'
 
 async function main() {
   // repositories
-  const productRepository = ProductRepositoryPrisma.create(prisma)
-  const userRepository = UserRepositoryPrisma.create(prisma)
+  const productRepository = ProductPrismaRepositoryImpl.create(prisma)
+  const userRepository = UserPrismaRepositoryImpl.create(prisma)
 
   // usecases
   const createProductUseCase = CreateProductUseCase.create(productRepository)

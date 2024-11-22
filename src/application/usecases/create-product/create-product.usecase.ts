@@ -1,5 +1,5 @@
-import { ProductEntity } from '~/domain/product/entity/product'
-import { ProductGateway } from '~/domain/product/gateway/product.gateway'
+import { ProductEntity } from '~/domain/entities/product.entity'
+import { ProductGateway } from '~/domain/repositories/product.repository'
 
 import { IUseCase } from '../usecase.interface'
 

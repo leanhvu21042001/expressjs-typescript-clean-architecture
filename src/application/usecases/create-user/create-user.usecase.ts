@@ -1,6 +1,6 @@
-import { AddressEntity } from '~/domain/address/entity/address'
-import { UserEntity } from '~/domain/user/entity/user.entity'
-import { UserGateway } from '~/domain/user/gateway/user.gateway'
+import { AddressEntity } from '~/domain/entities/address.entity'
+import { UserEntity } from '~/domain/entities/user.entity.entity'
+import { UserGateway } from '~/domain/repositories/user.repository'
 
 import { IUseCase } from '../usecase.interface'
 

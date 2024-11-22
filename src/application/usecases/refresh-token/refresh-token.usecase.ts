@@ -1,7 +1,7 @@
 import moment from 'moment'
 
-import { UserGateway } from '~/domain/user/gateway/user.gateway'
-import { UnauthorizedException } from '~/infrastructure/exceptions/exceptions'
+import { UnauthorizedException } from '~/domain/exceptions/exceptions'
+import { UserGateway } from '~/domain/repositories/user.repository'
 import { decodeToken, generateToken, verifyToken } from '~/shared/jwt-auth.shared'
 
 import { IUseCase } from '../usecase.interface'
