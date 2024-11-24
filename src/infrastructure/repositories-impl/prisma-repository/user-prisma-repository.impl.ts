@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-import { UserEntity } from '~/domain/entities/user.entity.entity'
+import { UserEntity } from '~/domain/entities/user.entity'
 import { UserGateway } from '~/domain/repositories/user.repository'
 import { UserMapper } from '~/infrastructure/mappers/user.mapper'
 

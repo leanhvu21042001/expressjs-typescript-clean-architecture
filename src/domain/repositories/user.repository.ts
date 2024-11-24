@@ -1,4 +1,4 @@
-import { UserEntity } from '../entities/user.entity.entity'
+import { UserEntity } from '../entities/user.entity'
 
 export interface UserGateway {
   save(user: UserEntity): Promise<UserEntity>

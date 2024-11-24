@@ -1,6 +1,6 @@
 import { Address as AddressPrisma, User as PrismaUser } from '@prisma/client'
 
-import { UserEntity } from '~/domain/entities/user.entity.entity'
+import { UserEntity } from '~/domain/entities/user.entity'
 
 import { AddressMapper } from './address.mapper'
 

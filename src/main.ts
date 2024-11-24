@@ -6,7 +6,7 @@ import { CreateProductRouteExpress } from './infrastructure/api/express/routes/p
 import { GetUserByIdRouteExpress } from './infrastructure/api/express/routes/user/get-user-by-id.express.route'
 import { ApiFastify } from './infrastructure/api/fastify/api.fastify'
 import { ListProductRouteFastify } from './infrastructure/api/fastify/routes/product/list-product.fastify.route'
-import { prisma } from './infrastructure/databases/prisma/prisma'
+import { prisma } from './infrastructure/database/prisma/prisma'
 import { ProductPrismaRepositoryImpl } from './infrastructure/repositories-impl/prisma-repository/product-prisma-repository.impl'
 import { UserPrismaRepositoryImpl } from './infrastructure/repositories-impl/prisma-repository/user-prisma-repository.impl'
 

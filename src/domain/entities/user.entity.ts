@@ -1,5 +1,8 @@
 import { AddressEntity } from '~/domain/entities/address.entity'
 
+import { EmailValueObject } from '../value-objects/email.value-object'
+import { RoleEntity } from './role.entity'
+
 export type UserEntityProps = {
   createdAt: Date
   updatedAt: Date
@@ -8,11 +11,12 @@ export type UserEntityProps = {
   age: number
   name: string
   phone: string | null
-  email: string | null
+  email: EmailValueObject
   gender: string
   address: AddressEntity | null
   username: string
   password: string
+  roles: Array<RoleEntity>
 }
 
 export class UserEntity {
@@ -39,7 +43,7 @@ export class UserEntity {
   public get phone(): string | null {
     return this.props.phone
   }
-  public get email(): string | null {
+  public get email(): EmailValueObject {
     return this.props.email
   }
   public get gender(): string {
@@ -54,9 +58,15 @@ export class UserEntity {
   public get password(): string {
     return this.props.password
   }
+  public get roles(): Array<RoleEntity> {
+    return this.props.roles
+  }
 
   static create(
-    props: Pick<UserEntityProps, 'age' | 'name' | 'phone' | 'address' | 'email' | 'gender' | 'username' | 'password'>,
+    props: Pick<
+      UserEntityProps,
+      'age' | 'name' | 'phone' | 'address' | 'email' | 'gender' | 'username' | 'password' | 'roles'
+    >,
   ): UserEntity {
     return new UserEntity({
       id: crypto.randomUUID().toString(),
@@ -71,10 +81,26 @@ export class UserEntity {
       deletedAt: null,
       username: props.username,
       password: props.password,
+      roles: props.roles,
     })
   }
 
   static with(props: UserEntityProps): UserEntity {
     return new UserEntity(props)
   }
+
+  public assignRole(role: RoleEntity): void {
+    if (this.props.roles?.find((r) => r.id === role.id)) {
+      this.roles.push(role)
+    }
+  }
+
+  public removeRole(roleId: RoleEntity['id']): void {
+    this.props.roles = this.props.roles.filter((role) => role.id !== roleId) ?? []
+  }
+
+  // verifyPassword(password: string): boolean {
+  //   // Example of domain-specific business logic (requires bcrypt or similar)
+  //   return true // Replace with actual hash comparison logic
+  // }
 }
