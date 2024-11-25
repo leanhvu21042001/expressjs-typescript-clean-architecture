@@ -49,4 +49,20 @@ export class PermissionEntity {
   public get deletedAt(): Date | null {
     return this.props.deletedAt
   }
+
+  public get resource(): ResourceEntity {
+    return this.props.resource
+  }
+
+  public get scope(): ScopeEntity {
+    return this.props.scope
+  }
+
+  public setResource(resource: ResourceEntity): void {
+    this.props.resource = resource
+  }
+
+  public setScope(scope: ScopeEntity): void {
+    this.props.scope = scope
+  }
 }

@@ -1,6 +1,7 @@
 import { AddressEntity } from '~/domain/entities/address.entity'
 
 import { EmailValueObject } from '../value-objects/email.value-object'
+import { PhoneValueObject } from '../value-objects/phone.value-object'
 import { RoleEntity } from './role.entity'
 
 export type UserEntityProps = {
@@ -10,7 +11,7 @@ export type UserEntityProps = {
   id: string
   age: number
   name: string
-  phone: string | null
+  phone: PhoneValueObject
   email: EmailValueObject
   gender: string
   address: AddressEntity | null
@@ -40,7 +41,7 @@ export class UserEntity {
   public get name(): string {
     return this.props.name
   }
-  public get phone(): string | null {
+  public get phone(): PhoneValueObject {
     return this.props.phone
   }
   public get email(): EmailValueObject {
