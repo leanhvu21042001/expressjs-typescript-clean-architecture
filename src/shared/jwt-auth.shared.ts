@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import jwt, { Jwt, JwtPayload } from 'jsonwebtoken'
 
-import { UnauthorizedException } from '~/domain/exceptions/exceptions'
+import { UnauthorizedException } from '~/infrastructure/exceptions/exceptions'
 
 import { ENV } from './env.shared'
 

@@ -1,5 +1,5 @@
-import { BadRequestException } from '~/domain/exceptions/exceptions'
 import { UserGateway } from '~/domain/repositories/user.repository'
+import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
 import { comparePassword } from '~/shared/hash-password'
 import { generateToken } from '~/shared/jwt-auth.shared'
 

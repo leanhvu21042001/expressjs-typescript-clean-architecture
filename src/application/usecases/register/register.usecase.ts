@@ -1,7 +1,7 @@
 import { AddressEntity } from '~/domain/entities/address.entity'
 import { UserEntity } from '~/domain/entities/user.entity'
-import { BadRequestException } from '~/domain/exceptions/exceptions'
 import { UserGateway } from '~/domain/repositories/user.repository'
+import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
 import { hashPassword } from '~/shared/hash-password'
 import { generateToken } from '~/shared/jwt-auth.shared'
 

@@ -1,4 +1,4 @@
-import { HttpStatus } from '../enums/http-status.enum'
+import { HttpStatus } from './http-status.enum'
 
 export class BaseException extends Error {
   public type: string

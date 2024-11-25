@@ -1,14 +1,16 @@
 model Address {
     id        Int       @id @default(autoincrement())
-    street    String
-    city      String
-    state     String
-    zip       String
-    country   String
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
     deletedAt DateTime?
-    User      User[]
+
+    street  String
+    city    String
+    state   String
+    zip     String
+    country String
+
+    User User[]
 
     @@map("addresses")
 }
