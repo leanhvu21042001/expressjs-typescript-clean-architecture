@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 
 import { UserEntity } from '~/domain/entities/user.entity'
-import { UserGateway } from '~/domain/repositories/user.repository'
+import { UserRepository } from '~/domain/repositories/user.repository'
 import { UserMapper } from '~/infrastructure/mappers/user.mapper'
 
-export class UserPrismaRepositoryImpl implements UserGateway {
+export class UserPrismaRepositoryImpl implements UserRepository {
   private constructor(private readonly prismaClient: PrismaClient) {}
 
   async findByUsername(username: UserEntity['username']): Promise<UserEntity | undefined> {

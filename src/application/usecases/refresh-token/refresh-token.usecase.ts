@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { UserGateway } from '~/domain/repositories/user.repository'
+import { UserRepository } from '~/domain/repositories/user.repository'
 import { UnauthorizedException } from '~/infrastructure/exceptions/exceptions'
 import { decodeToken, generateToken, verifyToken } from '~/shared/jwt-auth.shared'
 
@@ -17,9 +17,9 @@ export type RefreshTokenOutputDto = {
 }
 
 export class RefreshTokenUseCase implements IUseCase<RefreshTokenInputDto, RefreshTokenOutputDto> {
-  private constructor(private readonly userGateway: UserGateway) {}
+  private constructor(private readonly userGateway: UserRepository) {}
 
-  public static create(userGateway: UserGateway): RefreshTokenUseCase {
+  public static create(userGateway: UserRepository): RefreshTokenUseCase {
     return new RefreshTokenUseCase(userGateway)
   }
 

@@ -1,6 +1,5 @@
-import { AddressEntity } from '~/domain/entities/address.entity'
 import { UserEntity } from '~/domain/entities/user.entity'
-import { UserGateway } from '~/domain/repositories/user.repository'
+import { UserRepository } from '~/domain/repositories/user.repository'
 import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
 import { hashPassword } from '~/shared/hash-password'
 import { generateToken } from '~/shared/jwt-auth.shared'
@@ -29,9 +28,9 @@ export type RegisterOutputDto = {
 }
 
 export class RegisterUseCase implements IUseCase<RegisterInputDto, RegisterOutputDto> {
-  private constructor(private readonly userGateway: UserGateway) {}
+  private constructor(private readonly userGateway: UserRepository) {}
 
-  public static create(userGateway: UserGateway): RegisterUseCase {
+  public static create(userGateway: UserRepository): RegisterUseCase {
     return new RegisterUseCase(userGateway)
   }
 
@@ -44,28 +43,18 @@ export class RegisterUseCase implements IUseCase<RegisterInputDto, RegisterOutpu
 
     const passwordHashed = await hashPassword(input.password)
 
-    const addressEntity = AddressEntity.create({
-      country: input.country,
-      city: input.city,
-      state: input.state,
-      street: input.street,
-      zip: input.zip,
-    })
-
     const userEntity = UserEntity.create({
       name: input.name,
-      email: input.email,
-      address: addressEntity,
-      phone: input.phone,
       age: input.age,
       gender: input.gender,
       username: input.username,
       password: passwordHashed,
     })
+
     const userSaved = await this.userGateway.save(userEntity)
 
     const payload = {
-      id: String(userSaved.id),
+      id: userSaved.id,
     }
     const accessToken = generateToken(payload, 'access')
     const refreshToken = generateToken(payload, 'refresh')

@@ -1,6 +1,6 @@
 import { ProductEntity } from '../entities/product.entity'
 
-export interface ProductGateway {
+export interface ProductRepository {
   save(product: ProductEntity): Promise<void>
   findById(id: ProductEntity['id']): Promise<ProductEntity | undefined>
   list(): Promise<ProductEntity[]>

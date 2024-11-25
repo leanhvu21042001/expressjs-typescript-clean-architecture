@@ -1,4 +1,4 @@
-import { UserGateway } from '~/domain/repositories/user.repository'
+import { UserRepository } from '~/domain/repositories/user.repository'
 import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
 import { comparePassword } from '~/shared/hash-password'
 import { generateToken } from '~/shared/jwt-auth.shared'
@@ -16,9 +16,9 @@ export type LoginOutputDto = {
 }
 
 export class LoginUseCase implements IUseCase<LoginInputDto, LoginOutputDto> {
-  private constructor(private readonly userGateway: UserGateway) {}
+  private constructor(private readonly userGateway: UserRepository) {}
 
-  public static create(userGateway: UserGateway): LoginUseCase {
+  public static create(userGateway: UserRepository): LoginUseCase {
     return new LoginUseCase(userGateway)
   }
 
@@ -36,7 +36,7 @@ export class LoginUseCase implements IUseCase<LoginInputDto, LoginOutputDto> {
     }
 
     const payload = {
-      id: String(userFound.id),
+      id: userFound.id,
     }
     const accessToken = generateToken(payload, 'access')
     const refreshToken = generateToken(payload, 'refresh')

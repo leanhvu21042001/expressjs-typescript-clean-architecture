@@ -9,7 +9,6 @@ export type ProductEntityProps = {
 }
 
 export class ProductEntity {
-  // make sure constructor and properties are private to prevent direct modification
   private constructor(private readonly props: ProductEntityProps) {}
 
   public get id() {
@@ -40,7 +39,7 @@ export class ProductEntity {
     return this.props.quantity
   }
 
-  public static create(props: Pick<ProductEntityProps, 'name' | 'price'>): ProductEntity {
+  public static create(props: Pick<ProductEntityProps, 'name' | 'price' | 'quantity'>): ProductEntity {
     return new ProductEntity({
       createdAt: new Date(),
       updatedAt: new Date(),

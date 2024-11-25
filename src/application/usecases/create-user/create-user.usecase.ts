@@ -1,6 +1,6 @@
 import { AddressEntity } from '~/domain/entities/address.entity'
 import { UserEntity } from '~/domain/entities/user.entity'
-import { UserGateway } from '~/domain/repositories/user.repository'
+import { UserRepository } from '~/domain/repositories/user.repository'
 
 import { IUseCase } from '../usecase.interface'
 
@@ -24,9 +24,9 @@ export type CreateUserOutputDto = {
 }
 
 export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUserOutputDto> {
-  private constructor(private readonly userGateway: UserGateway) {}
+  private constructor(private readonly userGateway: UserRepository) {}
 
-  public static create(userGateway: UserGateway): CreateUserUseCase {
+  public static create(userGateway: UserRepository): CreateUserUseCase {
     return new CreateUserUseCase(userGateway)
   }
 

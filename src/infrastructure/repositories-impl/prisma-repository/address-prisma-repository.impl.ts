@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 
 import { AddressEntity } from '~/domain/entities/address.entity'
-import { AddressGateway } from '~/domain/repositories/address.repository'
+import { AddressRepository } from '~/domain/repositories/address.repository'
 import { AddressMapper } from '~/infrastructure/mappers/address.mapper'
 
-export class AddressPrismaRepositoryImpl implements AddressGateway {
+export class AddressPrismaRepositoryImpl implements AddressRepository {
   private constructor(private readonly prismaClient: PrismaClient) {}
 
   public static create(prismaClient: PrismaClient) {

@@ -1,6 +1,6 @@
 import { UserEntity } from '../entities/user.entity'
 
-export interface UserGateway {
+export interface UserRepository {
   save(user: UserEntity): Promise<UserEntity>
   findById(id: string): Promise<UserEntity | undefined>
   findByUsername(username: UserEntity['username']): Promise<UserEntity | undefined>

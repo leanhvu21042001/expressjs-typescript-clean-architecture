@@ -1,5 +1,5 @@
 import { UserEntity } from '~/domain/entities/user.entity'
-import { UserGateway } from '~/domain/repositories/user.repository'
+import { UserRepository } from '~/domain/repositories/user.repository'
 
 import { IUseCase } from '../usecase.interface'
 
@@ -21,9 +21,9 @@ export type GetUserByIdOutputDto = {
 }
 
 export class GetUserByIdUseCase implements IUseCase<GetUserByIdInputDto, GetUserByIdOutputDto> {
-  constructor(private readonly userGateway: UserGateway) {}
+  constructor(private readonly userGateway: UserRepository) {}
 
-  public static create(userGateway: UserGateway): GetUserByIdUseCase {
+  public static create(userGateway: UserRepository): GetUserByIdUseCase {
     return new GetUserByIdUseCase(userGateway)
   }
 

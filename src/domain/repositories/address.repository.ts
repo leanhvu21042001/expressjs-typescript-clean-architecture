@@ -1,6 +1,6 @@
 import { AddressEntity } from '../entities/address.entity'
 
-export interface AddressGateway {
+export interface AddressRepository {
   save(address: AddressEntity): Promise<AddressEntity>
   findById(id: string): Promise<AddressEntity | undefined>
   findAll(): Promise<AddressEntity[]>

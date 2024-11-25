@@ -1,5 +1,5 @@
 import { ProductEntity } from '~/domain/entities/product.entity'
-import { ProductGateway } from '~/domain/repositories/product.repository'
+import { ProductRepository } from '~/domain/repositories/product.repository'
 
 import { IUseCase } from '../usecase.interface'
 
@@ -13,10 +13,10 @@ export type CreateProductOutputDto = {
 }
 
 export class CreateProductUseCase implements IUseCase<CreateProductInputDto, CreateProductOutputDto> {
-  private constructor(private readonly productGateway: ProductGateway) {}
+  private constructor(private readonly productGateway: ProductRepository) {}
 
   // builder design pattern
-  public static create(productGateway: ProductGateway): CreateProductUseCase {
+  public static create(productGateway: ProductRepository): CreateProductUseCase {
     return new CreateProductUseCase(productGateway)
   }
 

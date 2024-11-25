@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 
 import { ProductEntity } from '~/domain/entities/product.entity'
-import { ProductGateway } from '~/domain/repositories/product.repository'
+import { ProductRepository } from '~/domain/repositories/product.repository'
 import { ProductMapper } from '~/infrastructure/mappers/product.mapper'
 
-export class ProductPrismaRepositoryImpl implements ProductGateway {
+export class ProductPrismaRepositoryImpl implements ProductRepository {
   private constructor(private readonly prismaClient: PrismaClient) {}
 
   public static create(prismaClient: PrismaClient) {
