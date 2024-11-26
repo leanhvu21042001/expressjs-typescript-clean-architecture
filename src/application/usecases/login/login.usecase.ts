@@ -16,14 +16,14 @@ export type LoginOutputDto = {
 }
 
 export class LoginUseCase implements IUseCase<LoginInputDto, LoginOutputDto> {
-  private constructor(private readonly userGateway: UserRepository) {}
+  private constructor(private readonly userRepository: UserRepository) {}
 
-  public static create(userGateway: UserRepository): LoginUseCase {
-    return new LoginUseCase(userGateway)
+  public static create(userRepository: UserRepository): LoginUseCase {
+    return new LoginUseCase(userRepository)
   }
 
   async execute(input: LoginInputDto): Promise<LoginOutputDto> {
-    const userFound = await this.userGateway.findByUsername(input.username)
+    const userFound = await this.userRepository.findByUsername(input.username)
 
     if (!userFound) {
       throw new BadRequestException('Invalid username or password')

@@ -15,14 +15,14 @@ export type ListProductOutputDto = {
 }
 
 export class ListProductUseCase implements IUseCase<ListProductInputDto, ListProductOutputDto> {
-  private constructor(private readonly productGateway: ProductRepository) {}
+  private constructor(private readonly productRepository: ProductRepository) {}
 
-  public static create(productGateway: ProductRepository): ListProductUseCase {
-    return new ListProductUseCase(productGateway)
+  public static create(productRepository: ProductRepository): ListProductUseCase {
+    return new ListProductUseCase(productRepository)
   }
 
   async execute(): Promise<ListProductOutputDto> {
-    const products = await this.productGateway.list()
+    const products = await this.productRepository.list()
 
     const output = this.presentOutput(products)
 

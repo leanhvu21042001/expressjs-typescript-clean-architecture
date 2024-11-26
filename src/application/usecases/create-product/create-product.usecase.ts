@@ -13,11 +13,11 @@ export type CreateProductOutputDto = {
 }
 
 export class CreateProductUseCase implements IUseCase<CreateProductInputDto, CreateProductOutputDto> {
-  private constructor(private readonly productGateway: ProductRepository) {}
+  private constructor(private readonly productRepository: ProductRepository) {}
 
   // builder design pattern
-  public static create(productGateway: ProductRepository): CreateProductUseCase {
-    return new CreateProductUseCase(productGateway)
+  public static create(productRepository: ProductRepository): CreateProductUseCase {
+    return new CreateProductUseCase(productRepository)
   }
 
   async execute(input: CreateProductInputDto): Promise<CreateProductOutputDto> {
@@ -26,7 +26,7 @@ export class CreateProductUseCase implements IUseCase<CreateProductInputDto, Cre
       price: input.price,
     })
 
-    await this.productGateway.save(product)
+    await this.productRepository.save(product)
 
     const output = this.presentOutput(product)
     return output

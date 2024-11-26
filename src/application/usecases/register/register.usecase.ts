@@ -28,14 +28,14 @@ export type RegisterOutputDto = {
 }
 
 export class RegisterUseCase implements IUseCase<RegisterInputDto, RegisterOutputDto> {
-  private constructor(private readonly userGateway: UserRepository) {}
+  private constructor(private readonly userRepository: UserRepository) {}
 
-  public static create(userGateway: UserRepository): RegisterUseCase {
-    return new RegisterUseCase(userGateway)
+  public static create(userRepository: UserRepository): RegisterUseCase {
+    return new RegisterUseCase(userRepository)
   }
 
   async execute(input: RegisterInputDto): Promise<RegisterOutputDto> {
-    const userFound = await this.userGateway.findByUsername(input.username)
+    const userFound = await this.userRepository.findByUsername(input.username)
 
     if (userFound) {
       throw new BadRequestException('User already exists')
@@ -51,7 +51,7 @@ export class RegisterUseCase implements IUseCase<RegisterInputDto, RegisterOutpu
       password: passwordHashed,
     })
 
-    const userSaved = await this.userGateway.save(userEntity)
+    const userSaved = await this.userRepository.save(userEntity)
 
     const payload = {
       id: userSaved.id,

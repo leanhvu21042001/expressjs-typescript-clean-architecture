@@ -21,14 +21,14 @@ export type GetUserByIdOutputDto = {
 }
 
 export class GetUserByIdUseCase implements IUseCase<GetUserByIdInputDto, GetUserByIdOutputDto> {
-  constructor(private readonly userGateway: UserRepository) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  public static create(userGateway: UserRepository): GetUserByIdUseCase {
-    return new GetUserByIdUseCase(userGateway)
+  public static create(userRepository: UserRepository): GetUserByIdUseCase {
+    return new GetUserByIdUseCase(userRepository)
   }
 
   async execute(input: GetUserByIdInputDto): Promise<GetUserByIdOutputDto> {
-    const user = await this.userGateway.findById(input.id)
+    const user = await this.userRepository.findById(input.id)
     if (!user) throw new Error('User not found')
 
     console.log(user)

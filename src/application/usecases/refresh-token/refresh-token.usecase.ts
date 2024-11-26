@@ -17,10 +17,10 @@ export type RefreshTokenOutputDto = {
 }
 
 export class RefreshTokenUseCase implements IUseCase<RefreshTokenInputDto, RefreshTokenOutputDto> {
-  private constructor(private readonly userGateway: UserRepository) {}
+  private constructor(private readonly userRepository: UserRepository) {}
 
-  public static create(userGateway: UserRepository): RefreshTokenUseCase {
-    return new RefreshTokenUseCase(userGateway)
+  public static create(userRepository: UserRepository): RefreshTokenUseCase {
+    return new RefreshTokenUseCase(userRepository)
   }
 
   async execute(input: RefreshTokenInputDto): Promise<RefreshTokenOutputDto> {
@@ -37,8 +37,8 @@ export class RefreshTokenUseCase implements IUseCase<RefreshTokenInputDto, Refre
     const refreshTokenVerified = verifyToken(input.refreshToken, 'refresh')
 
     // Compare should be equal of tokens
-    const userByAccessToken = await this.userGateway.findById(accessTokenVerified.id)
-    const userByRefreshToken = await this.userGateway.findById(refreshTokenVerified.id)
+    const userByAccessToken = await this.userRepository.findById(accessTokenVerified.id)
+    const userByRefreshToken = await this.userRepository.findById(refreshTokenVerified.id)
     if (!userByAccessToken?.id || !userByAccessToken.id || userByAccessToken?.id !== userByRefreshToken?.id) {
       throw new UnauthorizedException('Invalid access or refresh token')
     }

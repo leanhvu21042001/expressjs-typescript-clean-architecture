@@ -24,10 +24,10 @@ export type CreateUserOutputDto = {
 }
 
 export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUserOutputDto> {
-  private constructor(private readonly userGateway: UserRepository) {}
+  private constructor(private readonly userRepository: UserRepository) {}
 
-  public static create(userGateway: UserRepository): CreateUserUseCase {
-    return new CreateUserUseCase(userGateway)
+  public static create(userRepository: UserRepository): CreateUserUseCase {
+    return new CreateUserUseCase(userRepository)
   }
 
   async execute(input: CreateUserInputDto): Promise<CreateUserOutputDto> {
@@ -50,7 +50,7 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
       password: input.password,
     })
 
-    await this.userGateway.save(userEntity)
+    await this.userRepository.save(userEntity)
 
     const output = this.presentOutput(userEntity)
     return output
