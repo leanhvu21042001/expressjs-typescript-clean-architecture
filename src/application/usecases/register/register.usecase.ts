@@ -1,5 +1,7 @@
 import { UserEntity } from '~/domain/entities/user.entity'
 import { UserRepository } from '~/domain/repositories/user.repository'
+import { EmailValueObject } from '~/domain/value-objects/email.value-object'
+import { PhoneValueObject } from '~/domain/value-objects/phone.value-object'
 import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
 import { hashPassword } from '~/shared/hash-password'
 import { generateToken } from '~/shared/jwt-auth.shared'
@@ -8,18 +10,12 @@ import { IUseCase } from '../usecase.interface'
 
 export type RegisterInputDto = {
   name: string
-  email: string
-  address: string
-  phone: string
   age: number
+  phone: string
+  email: string
   gender: string
   username: string
   password: string
-  country: string
-  city: string
-  state: string
-  street: string
-  zip: string
 }
 
 export type RegisterOutputDto = {
@@ -43,9 +39,14 @@ export class RegisterUseCase implements IUseCase<RegisterInputDto, RegisterOutpu
 
     const passwordHashed = await hashPassword(input.password)
 
+    const phoneValueObject = PhoneValueObject.create(input.phone)
+    const emailValueObject = EmailValueObject.create(input.email)
+
     const userEntity = UserEntity.create({
       name: input.name,
       age: input.age,
+      phone: phoneValueObject,
+      email: emailValueObject,
       gender: input.gender,
       username: input.username,
       password: passwordHashed,

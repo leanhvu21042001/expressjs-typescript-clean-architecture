@@ -1,6 +1,6 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "workbench.colorTheme": "Cobalt2",
+  "workbench.colorTheme": "Default Dark+",
   "explorer.compactFolders": false,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

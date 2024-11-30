@@ -1,3 +1,5 @@
+import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
+
 export class PhoneValueObject {
   private readonly _phone: string
 
@@ -11,7 +13,7 @@ export class PhoneValueObject {
 
   public static create(phone: string): PhoneValueObject {
     if (!PhoneValueObject.isValid(phone)) {
-      throw new Error('Invalid phone')
+      throw new BadRequestException('Invalid phone')
     }
     return new PhoneValueObject(phone)
   }

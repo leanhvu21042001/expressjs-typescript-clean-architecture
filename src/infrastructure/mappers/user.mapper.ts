@@ -31,6 +31,7 @@ export class UserMapper {
 
   static toPersistent(user: UserEntity): PrismaUser {
     const id = Number(user.id)
+
     const addressId = user.address ? AddressMapper.toPersistent(user.address).id : null
 
     return {

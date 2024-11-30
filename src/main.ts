@@ -1,7 +1,11 @@
 import { CreateProductUseCase } from './application/usecases/create-product/create-product.usecase'
 import { GetUserByIdUseCase } from './application/usecases/get-user-by-id/get-user-by-id.usecase'
 import { ListProductUseCase } from './application/usecases/list-product/list-product.usecase'
+import { LoginUseCase } from './application/usecases/login/login.usecase'
+import { RegisterUseCase } from './application/usecases/register/register.usecase'
 import { ApiExpress } from './infrastructure/api/express/api.express'
+import { LoginRouteExpress } from './infrastructure/api/express/routes/auth/login.express.route'
+import { RegisterRouteExpress } from './infrastructure/api/express/routes/auth/register.express.route'
 import { CreateProductRouteExpress } from './infrastructure/api/express/routes/product/create-product.express.route'
 import { GetUserByIdRouteExpress } from './infrastructure/api/express/routes/user/get-user-by-id.express.route'
 import { ApiFastify } from './infrastructure/api/fastify/api.fastify'
@@ -18,13 +22,22 @@ async function main() {
   // usecases
   const createProductUseCase = CreateProductUseCase.create(productRepository)
   const listProductUseCase = ListProductUseCase.create(productRepository)
-
   const getUserByIdUseCase = GetUserByIdUseCase.create(userRepository)
+  const loginUseCase = LoginUseCase.create(userRepository)
+  const registerUseCase = RegisterUseCase.create(userRepository)
 
   // routes of express
   const createProductRouteExpress = CreateProductRouteExpress.create(createProductUseCase)
   const userByIdRouteExpress = GetUserByIdRouteExpress.create(getUserByIdUseCase)
-  const apiExpress = ApiExpress.create([createProductRouteExpress, userByIdRouteExpress])
+  const loginRouteExpress = LoginRouteExpress.create(loginUseCase)
+  const registerRouteExpress = RegisterRouteExpress.create(registerUseCase)
+
+  const apiExpress = ApiExpress.create([
+    createProductRouteExpress,
+    userByIdRouteExpress,
+    loginRouteExpress,
+    registerRouteExpress,
+  ])
 
   // routes of fastify
   const listProductRouteFastify = ListProductRouteFastify.create(listProductUseCase)

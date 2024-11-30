@@ -19,7 +19,11 @@ export type UserEntityProps = {
   roles: Array<RoleEntity>
 }
 
-export type CreateUserEntityProps = Pick<UserEntityProps, 'age' | 'name' | 'gender' | 'username' | 'password'>
+// export type CreateUserEntityProps = Pick<UserEntityProps, 'age' | 'name' | 'gender' | 'username' | 'password'>
+export type CreateUserEntityProps = Omit<
+  UserEntityProps,
+  'createdAt' | 'updatedAt' | 'deletedAt' | 'id' | 'address' | 'roles'
+>
 
 export class UserEntity {
   private constructor(private readonly props: UserEntityProps) {}

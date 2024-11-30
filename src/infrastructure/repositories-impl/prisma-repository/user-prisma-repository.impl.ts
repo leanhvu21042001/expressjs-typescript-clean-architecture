@@ -22,11 +22,20 @@ export class UserPrismaRepositoryImpl implements UserRepository {
 
   async save(user: UserEntity): Promise<UserEntity> {
     const dataSave = UserMapper.toPersistent(user)
+
     const output = await this.prismaClient.user.create({
       include: {
         address: true,
       },
-      data: dataSave,
+      data: {
+        age: dataSave.age,
+        email: dataSave.email,
+        name: dataSave.name,
+        password: dataSave.password,
+        username: dataSave.username,
+        gender: dataSave.gender,
+        phone: dataSave.phone,
+      },
     })
 
     return UserMapper.toDomain({ ...output, address: output.address ?? undefined })
@@ -36,7 +45,7 @@ export class UserPrismaRepositoryImpl implements UserRepository {
       include: {
         address: true,
       },
-      where: { id },
+      where: { id: Number(id) },
     })
 
     return output ? UserMapper.toDomain({ ...output, address: output.address ?? undefined }) : undefined
@@ -54,13 +63,13 @@ export class UserPrismaRepositoryImpl implements UserRepository {
   }
   async delete(id: string): Promise<void> {
     await this.prismaClient.user.delete({
-      where: { id },
+      where: { id: Number(id) },
     })
   }
   async update(user: UserEntity): Promise<void> {
     await this.prismaClient.user.update({
       data: UserMapper.toPersistent(user),
-      where: { id: user.id },
+      where: { id: Number(user.id) },
     })
   }
 

@@ -1,7 +1,15 @@
-import express, { Express, NextFunction } from 'express'
+import express from 'express'
+
+import { BaseException, NotFoundException } from '~/infrastructure/exceptions/exceptions'
+import { ENV } from '~/shared/env.shared'
 
 import { IApi } from '../api.interface'
-import { IRouteExpress } from './routes/route.express.interface'
+import {
+  IRouteExpress,
+  TExpressNextFunction,
+  TExpressRequest,
+  TExpressResponse,
+} from './routes/route.express.interface'
 
 type TApRouterStack = {
   route: {
@@ -11,28 +19,24 @@ type TApRouterStack = {
 }
 
 export class ApiExpress implements IApi {
-  private app: Express
+  private app: express.Application
 
   private constructor(routes: IRouteExpress[]) {
     this.app = express()
-
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
 
     this.addRoutes(routes)
-
-    this.app.use('*', (req, res, next) => {
-      next(new Error('Not found'))
-    })
-
-    this.app.use((err: Error, req: express.Request, res: express.Response) => {
-      res.status(404).json({ message: err.message })
-      return
-    })
   }
 
   public static create(routes: IRouteExpress[]) {
     return new ApiExpress(routes)
+  }
+
+  public start(port: number): void {
+    this.app.listen(port, () => {
+      this.displayRoutes()
+    })
   }
 
   private addRoutes(routes: IRouteExpress[]) {
@@ -41,17 +45,33 @@ export class ApiExpress implements IApi {
       const method = route.getMethod()
       const handler = route.getHandler()
 
-      this.app[method](path, handler)
+      this.app[method](path, this.catchAsync(handler))
     })
+
+    this.app.use('*', (req, res, next) => {
+      next(new NotFoundException('not found'))
+    })
+
+    this.app.use(
+      (error: Error | BaseException, req: TExpressRequest, res: TExpressResponse, next: TExpressNextFunction) => {
+        if (ENV.NODE_ENV === 'production') {
+          delete error.stack
+        }
+
+        console.log('LAVDEV Error:', error)
+
+        if (error instanceof BaseException) {
+          res.status(error.statusCode).json(error)
+          return
+        }
+
+        res.status(500).json({ message: 'Something went wrong' })
+        return
+      },
+    )
   }
 
-  start(port: number): void {
-    this.app.listen(port, () => {
-      this.listRoutes()
-    })
-  }
-
-  private listRoutes() {
+  private displayRoutes() {
     const routes = (this.app._router.stack as TApRouterStack[])
       .filter((route) => route.route)
       .map((route) => {
@@ -62,5 +82,11 @@ export class ApiExpress implements IApi {
       })
 
     console.log(routes)
+  }
+
+  private catchAsync(fn: (req: TExpressRequest, res: TExpressResponse, next: TExpressNextFunction) => Promise<void>) {
+    return (req: TExpressRequest, res: TExpressResponse, next: TExpressNextFunction) => {
+      fn(req, res, next).catch(next)
+    }
   }
 }

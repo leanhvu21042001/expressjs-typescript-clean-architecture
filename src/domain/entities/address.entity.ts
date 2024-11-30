@@ -10,12 +10,13 @@ export type AddressEntityProps = {
   country: string
 }
 
+export type CreateAddressEntityProps = Omit<AddressEntityProps, 'createdAt' | 'updatedAt' | 'deletedAt' | 'id'>
+// Pick<AddressEntityProps, 'street' | 'city' | 'state' | 'zip' | 'country'>
+
 export class AddressEntity {
   constructor(private readonly props: AddressEntityProps) {}
 
-  public static create(
-    props: Pick<AddressEntityProps, 'street' | 'city' | 'state' | 'zip' | 'country'>,
-  ): AddressEntity {
+  public static create(props: CreateAddressEntityProps): AddressEntity {
     return new AddressEntity({
       id: crypto.randomUUID().toString(),
       street: props.street,

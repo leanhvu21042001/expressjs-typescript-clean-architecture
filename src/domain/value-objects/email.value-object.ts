@@ -1,3 +1,5 @@
+import { BadRequestException } from '~/infrastructure/exceptions/exceptions'
+
 export class EmailValueObject {
   private readonly _email: string
 
@@ -11,7 +13,7 @@ export class EmailValueObject {
 
   public static create(email: string): EmailValueObject {
     if (!EmailValueObject.isValid(email)) {
-      throw new Error('Invalid email')
+      throw new BadRequestException('Invalid email')
     }
     return new EmailValueObject(email)
   }

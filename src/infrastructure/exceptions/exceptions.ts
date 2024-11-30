@@ -4,20 +4,26 @@ export class BaseException extends Error {
   public type: string
   public statusCode: number
   public errorMessage: string
-  public details: Array<object>
+  public errorDetails: Array<object>
 
-  constructor(type: string, statusCode: number, errorMessage: string, details?: Array<object>) {
-    super(errorMessage)
-    this.type = type
+  constructor(type: string, statusCode: number, message: string, details?: Array<object>) {
+    super(message)
+    this.type = type || this.constructor.name
     this.statusCode = statusCode
-    this.errorMessage = errorMessage
-    this.details = details ?? []
+    this.errorMessage = message
+    this.errorDetails = details ?? []
+    // this.public = public
+    // this.operational = true
+    // this.logging = logging
+
+    // create stack trace
+    Error.captureStackTrace(this, this.constructor)
   }
 }
 
 export class InternalServerException extends BaseException {
   constructor(message: string, details?: Array<object>) {
-    super('InternalServerError', HttpStatus.INTERNAL_SERVER_ERROR, message, details)
+    super('InternalServer', HttpStatus.INTERNAL_SERVER_ERROR, message, details)
   }
 }
 
