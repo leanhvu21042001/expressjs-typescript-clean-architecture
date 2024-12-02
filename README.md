@@ -13,8 +13,8 @@
 # install packages
 npm install
 
-# push sqlite db
-npx prisma db push
+# push postgresql db
+npx prisma migrate dev --name init
 
 # prisma studio check
 npx prisma studio

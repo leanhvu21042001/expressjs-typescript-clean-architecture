@@ -1,20 +1,18 @@
 model User {
-    id        Int       @id @default(autoincrement())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+    id        Int        @id @default(autoincrement())
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
     deletedAt DateTime?
-
     age       Int
     name      String
-    phone     String @unique
-    email     String @unique
-    gender    String
-    username  String @unique
+    phone     String     @unique @db.VarChar(20)
+    email     String     @unique @db.VarChar(50)
+    gender    String     @db.VarChar(10)
+    username  String     @unique
     password  String
     addressId Int?
-
-    address Address?   @relation(fields: [addressId], references: [id])
-    roles   UserRole[]
+    address   Address?   @relation(fields: [addressId], references: [id])
+    roles     UserRole[]
 
     @@map("users")
 }

@@ -6,6 +6,30 @@ import { UserMapper } from '~/infrastructure/mappers/user.mapper'
 
 export class UserPrismaRepositoryImpl implements UserRepository {
   private constructor(private readonly prismaClient: PrismaClient) {}
+  async findByEmail(email: UserEntity['email']): Promise<UserEntity | undefined> {
+    const output = await this.prismaClient.user.findFirst({
+      include: {
+        address: true,
+      },
+      where: {
+        email: email.toString(),
+      },
+    })
+
+    return output ? UserMapper.toDomain({ ...output, address: output.address ?? undefined }) : undefined
+  }
+  async findByPhoneNumber(phone: UserEntity['phone']): Promise<UserEntity | undefined> {
+    const output = await this.prismaClient.user.findFirst({
+      include: {
+        address: true,
+      },
+      where: {
+        phone: phone.toString(),
+      },
+    })
+
+    return output ? UserMapper.toDomain({ ...output, address: output.address ?? undefined }) : undefined
+  }
 
   async findByUsername(username: UserEntity['username']): Promise<UserEntity | undefined> {
     const output = await this.prismaClient.user.findFirst({
@@ -23,6 +47,9 @@ export class UserPrismaRepositoryImpl implements UserRepository {
   async save(user: UserEntity): Promise<UserEntity> {
     const dataSave = UserMapper.toPersistent(user)
 
+    console.log({
+      dataSave,
+    })
     const output = await this.prismaClient.user.create({
       include: {
         address: true,

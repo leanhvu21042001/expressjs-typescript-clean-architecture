@@ -13,8 +13,8 @@ export type UserEntityProps = {
   gender: string
   username: string
   password: string
-  phone: PhoneValueObject | null
-  email: EmailValueObject | null
+  phone: PhoneValueObject
+  email: EmailValueObject
   address: AddressEntity | null
   roles: Array<RoleEntity>
 }
@@ -55,10 +55,10 @@ export class UserEntity {
   public get password(): string {
     return this.props.password
   }
-  public get phone(): PhoneValueObject | null {
+  public get phone(): PhoneValueObject {
     return this.props.phone
   }
-  public get email(): EmailValueObject | null {
+  public get email(): EmailValueObject {
     return this.props.email
   }
   public get address(): AddressEntity | null {
@@ -70,10 +70,11 @@ export class UserEntity {
 
   static create(props: CreateUserEntityProps): UserEntity {
     const id = crypto.randomUUID().toString()
+    const now = new Date()
 
     return new UserEntity({
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
       deletedAt: null,
       id,
       age: props.age,
@@ -82,8 +83,8 @@ export class UserEntity {
       username: props.username,
       password: props.password,
       address: null,
-      phone: null,
-      email: null,
+      phone: props.phone,
+      email: props.email,
       roles: [] as RoleEntity[],
     })
   }

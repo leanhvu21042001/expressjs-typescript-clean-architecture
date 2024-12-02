@@ -31,16 +31,18 @@ export class RegisterUseCase implements IUseCase<RegisterInputDto, RegisterOutpu
   }
 
   async execute(input: RegisterInputDto): Promise<RegisterOutputDto> {
-    const userFound = await this.userRepository.findByUsername(input.username)
+    const emailValueObject = EmailValueObject.create(input.email)
+    const phoneValueObject = PhoneValueObject.create(input.phone)
 
-    if (userFound) {
+    const userFound = await this.userRepository.findByUsername(input.username)
+    const userExistByEmail = await this.userRepository.findByEmail(emailValueObject)
+    const userExistByPhoneNumber = await this.userRepository.findByPhoneNumber(phoneValueObject)
+
+    if (userFound || userExistByEmail || userExistByPhoneNumber) {
       throw new BadRequestException('User already exists')
     }
 
     const passwordHashed = await hashPassword(input.password)
-
-    const phoneValueObject = PhoneValueObject.create(input.phone)
-    const emailValueObject = EmailValueObject.create(input.email)
 
     const userEntity = UserEntity.create({
       name: input.name,

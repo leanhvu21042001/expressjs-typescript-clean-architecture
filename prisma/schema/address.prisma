@@ -3,14 +3,12 @@ model Address {
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
     deletedAt DateTime?
-
-    street  String
-    city    String
-    state   String
-    zip     String
-    country String
-
-    User User[]
+    street    String
+    city      String
+    state     String
+    zip       String
+    country   String
+    User      User[]
 
     @@map("addresses")
 }

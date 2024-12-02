@@ -34,6 +34,10 @@ export class UserMapper {
 
     const addressId = user.address ? AddressMapper.toPersistent(user.address).id : null
 
+    console.log({
+      phone: user.phone,
+      email: user.email,
+    })
     return {
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
