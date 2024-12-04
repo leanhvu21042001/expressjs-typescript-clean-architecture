@@ -20,3 +20,14 @@ Content-Type: application/json
     "username": "leanhvu123",
     "password": "leanhvu"
 }
+
+
+### Refresh token
+POST http://localhost:8000/auth/refresh
+Content-Type: application/json
+
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJpYXQiOjE3MzMzMDAzNzcsImV4cCI6MTczMzM4Njc3N30.omrEsORyTNTcaq_AnIMt8z1W33sWdhf0u99RLHA0HVc",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJpYXQiOjE3MzMzMDAzNzcsImV4cCI6MTczNTgwNTk3N30.K6jD2rPSsfWFgoHFyQd8-NM7t-4jth5A1sWnAJQCx8U"
+}
+

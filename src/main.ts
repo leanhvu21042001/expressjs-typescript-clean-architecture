@@ -3,9 +3,11 @@ import { CreateProductUseCase } from './application/usecases/create-product/crea
 import { GetUserByIdUseCase } from './application/usecases/get-user-by-id/get-user-by-id.usecase'
 import { ListProductUseCase } from './application/usecases/list-product/list-product.usecase'
 import { LoginUseCase } from './application/usecases/login/login.usecase'
+import { RefreshTokenUseCase } from './application/usecases/refresh-token/refresh-token.usecase'
 import { RegisterUseCase } from './application/usecases/register/register.usecase'
 import { ApiExpress } from './infrastructure/api/express/api.express'
 import { LoginRouteExpress } from './infrastructure/api/express/routes/auth/login.express.route'
+import { RefreshRouteExpress } from './infrastructure/api/express/routes/auth/refresh.express.route'
 import { RegisterRouteExpress } from './infrastructure/api/express/routes/auth/register.express.route'
 import { CreateBlogRouteExpress } from './infrastructure/api/express/routes/blog/create-blog.express.route'
 import { CreateProductRouteExpress } from './infrastructure/api/express/routes/product/create-product.express.route'
@@ -29,6 +31,7 @@ async function main() {
   const getUserByIdUseCase = GetUserByIdUseCase.create(userRepository)
   const loginUseCase = LoginUseCase.create(userRepository)
   const registerUseCase = RegisterUseCase.create(userRepository)
+  const refreshTokenUseCase = RefreshTokenUseCase.create(userRepository)
   const createBlogUseCase = CreateBlogUseCase.create(blogRepository)
 
   // routes of express
@@ -36,6 +39,7 @@ async function main() {
   const userByIdRouteExpress = GetUserByIdRouteExpress.create(getUserByIdUseCase)
   const loginRouteExpress = LoginRouteExpress.create(loginUseCase)
   const registerRouteExpress = RegisterRouteExpress.create(registerUseCase)
+  const refreshRouteExpress = RefreshRouteExpress.create(refreshTokenUseCase)
   const createBlogRouteExpress = CreateBlogRouteExpress.create(createBlogUseCase)
 
   const apiExpress = ApiExpress.create([
@@ -44,6 +48,7 @@ async function main() {
     loginRouteExpress,
     registerRouteExpress,
     createBlogRouteExpress,
+    refreshRouteExpress,
   ])
 
   // routes of fastify
