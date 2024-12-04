@@ -21,30 +21,30 @@ import { UserPrismaRepositoryImpl } from './infrastructure/repositories-impl/pri
 
 async function main() {
   // repositories
-  const productRepository = ProductPrismaRepositoryImpl.create(prisma)
-  const userRepository = UserPrismaRepositoryImpl.create(prisma)
-  const blogRepository = BlogPrismaRepositoryImpl.create(prisma)
+  const productPrismaRepositoryImpl = ProductPrismaRepositoryImpl.create(prisma)
+  const userPrismaRepositoryImpl = UserPrismaRepositoryImpl.create(prisma)
+  const blogPrismaRepositoryImpl = BlogPrismaRepositoryImpl.create(prisma)
 
   // usecases
-  const createProductUseCase = CreateProductUseCase.create(productRepository)
-  const listProductUseCase = ListProductUseCase.create(productRepository)
-  const getUserByIdUseCase = GetUserByIdUseCase.create(userRepository)
-  const loginUseCase = LoginUseCase.create(userRepository)
-  const registerUseCase = RegisterUseCase.create(userRepository)
-  const refreshTokenUseCase = RefreshTokenUseCase.create(userRepository)
-  const createBlogUseCase = CreateBlogUseCase.create(blogRepository)
+  const createProductUseCase = CreateProductUseCase.create(productPrismaRepositoryImpl)
+  const listProductUseCase = ListProductUseCase.create(productPrismaRepositoryImpl)
+  const getUserByIdUseCase = GetUserByIdUseCase.create(userPrismaRepositoryImpl)
+  const loginUseCase = LoginUseCase.create(userPrismaRepositoryImpl)
+  const registerUseCase = RegisterUseCase.create(userPrismaRepositoryImpl)
+  const refreshTokenUseCase = RefreshTokenUseCase.create(userPrismaRepositoryImpl)
+  const createBlogUseCase = CreateBlogUseCase.create(blogPrismaRepositoryImpl)
 
   // routes of express
   const createProductRouteExpress = CreateProductRouteExpress.create(createProductUseCase)
-  const userByIdRouteExpress = GetUserByIdRouteExpress.create(getUserByIdUseCase)
+  const getUserByIdRouteExpress = GetUserByIdRouteExpress.create(getUserByIdUseCase)
   const loginRouteExpress = LoginRouteExpress.create(loginUseCase)
   const registerRouteExpress = RegisterRouteExpress.create(registerUseCase)
-  const refreshRouteExpress = RefreshRouteExpress.create(refreshTokenUseCase)
   const createBlogRouteExpress = CreateBlogRouteExpress.create(createBlogUseCase)
+  const refreshRouteExpress = RefreshRouteExpress.create(refreshTokenUseCase)
 
   const apiExpress = ApiExpress.create([
     createProductRouteExpress,
-    userByIdRouteExpress,
+    getUserByIdRouteExpress,
     loginRouteExpress,
     registerRouteExpress,
     createBlogRouteExpress,

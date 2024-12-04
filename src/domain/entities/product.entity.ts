@@ -39,7 +39,7 @@ export class ProductEntity {
     return this.props.quantity
   }
 
-  public static create(props: Pick<ProductEntityProps, 'name' | 'price' | 'quantity'>): ProductEntity {
+  public static create(props: Pick<ProductEntityProps, 'name' | 'price'>): ProductEntity {
     return new ProductEntity({
       createdAt: new Date(),
       updatedAt: new Date(),

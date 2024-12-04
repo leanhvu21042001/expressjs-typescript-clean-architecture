@@ -41,7 +41,7 @@ export class GetUserByIdUseCase implements IUseCase<GetUserByIdInputDto, GetUser
     return {
       id: user.id,
       name: user.name,
-      email: user.email,
+      email: user.email.toString(),
       address: {
         street: user?.address?.street || '',
         city: user?.address?.city || '',

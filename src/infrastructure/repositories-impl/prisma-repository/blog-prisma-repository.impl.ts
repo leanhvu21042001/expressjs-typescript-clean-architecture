@@ -12,7 +12,8 @@ export class BlogPrismaRepositoryImpl implements BlogRepository {
   }
 
   async save(blog: BlogEntity): Promise<void> {
-    const saved = await this.prismaClient.blog.create({
+    // const saved =
+    await this.prismaClient.blog.create({
       data: {
         title: blog.title,
         content: blog.content,
@@ -20,8 +21,7 @@ export class BlogPrismaRepositoryImpl implements BlogRepository {
         summary: blog.summary,
       },
     })
-
-    return BlogMapper.toDomain(saved)
+    // return BlogMapper.toDomain(saved)
   }
 
   async findById(id: BlogEntity['id']): Promise<BlogEntity | undefined> {
@@ -30,14 +30,38 @@ export class BlogPrismaRepositoryImpl implements BlogRepository {
         id: Number(id),
       },
     })
+
+    if (!blogFound) return undefined
+
+    return BlogMapper.toDomain(blogFound)
   }
-  list(): Promise<BlogEntity[]> {
-    throw new Error('Method not implemented.')
+
+  async list(): Promise<BlogEntity[]> {
+    const blogs = await this.prismaClient.blog.findMany({})
+
+    return blogs.map(BlogMapper.toDomain)
   }
-  delete(id: BlogEntity['id']): Promise<void> {
-    throw new Error('Method not implemented.')
+
+  async delete(id: BlogEntity['id']): Promise<void> {
+    await this.prismaClient.blog.delete({
+      where: {
+        id: Number(id),
+      },
+    })
   }
-  update(blog: BlogEntity): Promise<BlogEntity> {
-    throw new Error('Method not implemented.')
+  async update(blog: BlogEntity): Promise<BlogEntity> {
+    const updated = await this.prismaClient.blog.update({
+      data: {
+        title: blog.title,
+        content: blog.content,
+        draft: blog.draft,
+        summary: blog.summary,
+      },
+      where: {
+        id: Number(blog.id),
+      },
+    })
+
+    return BlogMapper.toDomain(updated)
   }
 }

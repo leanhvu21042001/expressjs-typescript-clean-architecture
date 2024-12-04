@@ -1,15 +1,10 @@
-import { Blog as PrismaBlog, Tag as PrismaTag } from '@prisma/client'
+import { Blog as PrismaBlog } from '@prisma/client'
 
 import { BlogEntity } from '~/domain/entities/blog.entity'
 
-import { TagMapper } from './tag.mapper'
-
-export type PrismaBlogWithTags = PrismaBlog & { tags?: PrismaTag[] }
-
 export class BlogMapper {
-  public static toDomain(prismaBlog: PrismaBlogWithTags): BlogEntity {
+  public static toDomain(prismaBlog: PrismaBlog): BlogEntity {
     const id = String(prismaBlog.id)
-    const tagsMapped = prismaBlog.tags?.map((tag) => TagMapper.toDomain(tag)) ?? []
 
     return BlogEntity.with({
       createdAt: prismaBlog.createdAt,
@@ -20,11 +15,11 @@ export class BlogMapper {
       summary: prismaBlog.summary,
       content: prismaBlog.content,
       draft: prismaBlog.draft,
-      tags: tagsMapped,
+      tags: [],
     })
   }
 
-  public static toPersistence(blogEntity: BlogEntity): PrismaBlogWithTags {
+  public static toPersistence(blogEntity: BlogEntity): PrismaBlog {
     const id = Number(blogEntity.id)
     return {
       id,
@@ -35,7 +30,6 @@ export class BlogMapper {
       summary: blogEntity.summary,
       content: blogEntity.content,
       draft: blogEntity.draft,
-      tags: blogEntity.tags.map((tag) => TagMapper.toPersistence(tag)),
     }
   }
 }

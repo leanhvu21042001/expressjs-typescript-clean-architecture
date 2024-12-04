@@ -1,6 +1,8 @@
 import { AddressEntity } from '~/domain/entities/address.entity'
 import { UserEntity } from '~/domain/entities/user.entity'
 import { UserRepository } from '~/domain/repositories/user.repository'
+import { EmailValueObject } from '~/domain/value-objects/email.value-object'
+import { PhoneValueObject } from '~/domain/value-objects/phone.value-object'
 
 import { IUseCase } from '../usecase.interface'
 
@@ -39,16 +41,19 @@ export class CreateUserUseCase implements IUseCase<CreateUserInputDto, CreateUse
       zip: input.zip,
     })
 
+    const emailValueObject = EmailValueObject.create(input.email)
+    const phoneValueObject = PhoneValueObject.create(input.phone)
+
     const userEntity = UserEntity.create({
       name: input.name,
-      email: input.email,
-      address: addressEntity,
-      phone: input.phone,
+      email: emailValueObject,
+      phone: phoneValueObject,
       age: input.age,
       gender: input.gender,
       username: input.username,
       password: input.password,
     })
+    userEntity.setAddress(addressEntity)
 
     await this.userRepository.save(userEntity)
 
