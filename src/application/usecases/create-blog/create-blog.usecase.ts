@@ -25,7 +25,7 @@ export class CreateBlogUseCase implements IUseCase<CreateBlogInputDto, CreateBlo
   }
 
   async execute(input: CreateBlogInputDto): Promise<CreateBlogOutputDto> {
-    const product = BlogEntity.create({
+    const blog = BlogEntity.create({
       title: input.title,
       content: input.content,
       summary: input.summary,
@@ -33,15 +33,15 @@ export class CreateBlogUseCase implements IUseCase<CreateBlogInputDto, CreateBlo
       tags: [],
     })
 
-    await this.blogRepository.save(product)
+    await this.blogRepository.save(blog)
 
-    const output = this.presentOutput(product)
+    const output = this.presentOutput(blog)
     return output
   }
 
-  private presentOutput(product: BlogEntity): CreateBlogOutputDto {
+  private presentOutput(blog: BlogEntity): CreateBlogOutputDto {
     const output: CreateBlogOutputDto = {
-      id: product.id,
+      id: blog.id,
     }
 
     return output

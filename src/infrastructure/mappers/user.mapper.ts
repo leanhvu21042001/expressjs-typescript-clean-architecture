@@ -9,8 +9,8 @@ import { AddressMapper } from './address.mapper'
 export class UserMapper {
   static toDomain(prismaUser: PrismaUser & { address?: AddressPrisma }): UserEntity {
     const id = prismaUser.id.toString()
-    const phoneValue = prismaUser.phone ? PhoneValueObject.create(prismaUser.phone) : null
-    const emailValue = prismaUser.email ? EmailValueObject.create(prismaUser.email) : null
+    const phoneValue = PhoneValueObject.create(prismaUser.phone)
+    const emailValue = EmailValueObject.create(prismaUser.email)
 
     return UserEntity.with({
       createdAt: prismaUser.createdAt,

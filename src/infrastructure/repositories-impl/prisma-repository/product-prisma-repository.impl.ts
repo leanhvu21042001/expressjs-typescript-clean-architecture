@@ -13,19 +13,19 @@ export class ProductPrismaRepositoryImpl implements ProductRepository {
 
   async findById(id: ProductEntity['id']): Promise<ProductEntity | undefined> {
     const product = await this.prismaClient.product.findFirst({
-      where: { id },
+      where: { id: Number(id) },
     })
 
     return product ? ProductMapper.toDomain(product) : undefined
   }
 
   public async delete(id: ProductEntity['id']) {
-    await this.prismaClient.product.delete({ where: { id: id } })
+    await this.prismaClient.product.delete({ where: { id: Number(id) } })
   }
 
   public async update(product: ProductEntity): Promise<ProductEntity> {
     const updatedProduct = await this.prismaClient.product.update({
-      where: { id: product.id },
+      where: { id: Number(product.id) },
       data: {
         name: product.name,
         price: product.price,
@@ -39,7 +39,7 @@ export class ProductPrismaRepositoryImpl implements ProductRepository {
   public async save(product: ProductEntity): Promise<void> {
     await this.prismaClient.product.create({
       data: {
-        id: product.id,
+        id: Number(product.id),
         name: product.name,
         price: product.price,
         quantity: product.quantity,

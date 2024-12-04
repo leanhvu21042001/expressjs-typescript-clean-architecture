@@ -21,7 +21,7 @@ export class AddressPrismaRepositoryImpl implements AddressRepository {
   }
   async findById(id: string): Promise<AddressEntity | undefined> {
     const output = await this.prismaClient.address.findUnique({
-      where: { id },
+      where: { id: Number(id) },
     })
 
     return output ? AddressMapper.toDomain(output) : undefined
@@ -33,13 +33,13 @@ export class AddressPrismaRepositoryImpl implements AddressRepository {
   }
   async delete(id: string): Promise<void> {
     await this.prismaClient.address.delete({
-      where: { id },
+      where: { id: Number(id) },
     })
   }
   async update(id: string, address: AddressEntity): Promise<void> {
     await this.prismaClient.address.update({
       data: AddressMapper.toPersistent(address),
-      where: { id },
+      where: { id: Number(id) },
     })
   }
 }
