@@ -1,2 +1,0 @@
-# Quản lý người dùng.
-

@@ -1,0 +1,5 @@
+- Đăng nhập
+- Đăng ký
+- Trang chủ
+- Thông tin cá nhân
+- Blog
