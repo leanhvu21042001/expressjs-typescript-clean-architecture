@@ -1,5 +1,5 @@
 - Đăng nhập
 - Đăng ký
-- Trang chủ
-- Thông tin cá nhân
-- Blog
+- CRUD Blog.
+- CRUD Tag
+- CRUD Blog With Tag.

@@ -11,9 +11,8 @@ export class BlogPrismaRepositoryImpl implements BlogRepository {
     return new BlogPrismaRepositoryImpl(prismaClient)
   }
 
-  async save(blog: BlogEntity): Promise<void> {
-    // const saved =
-    await this.prismaClient.blog.create({
+  async save(blog: BlogEntity): Promise<BlogEntity['id']> {
+    const saved = await this.prismaClient.blog.create({
       data: {
         title: blog.title,
         content: blog.content,
@@ -21,7 +20,7 @@ export class BlogPrismaRepositoryImpl implements BlogRepository {
         summary: blog.summary,
       },
     })
-    // return BlogMapper.toDomain(saved)
+    return BlogMapper.toDomain(saved).id
   }
 
   async findById(id: BlogEntity['id']): Promise<BlogEntity | undefined> {
@@ -36,7 +35,7 @@ export class BlogPrismaRepositoryImpl implements BlogRepository {
     return BlogMapper.toDomain(blogFound)
   }
 
-  async list(): Promise<BlogEntity[]> {
+  async findMany(): Promise<BlogEntity[]> {
     const blogs = await this.prismaClient.blog.findMany({})
 
     return blogs.map(BlogMapper.toDomain)
