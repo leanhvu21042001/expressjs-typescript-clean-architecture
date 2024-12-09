@@ -28,7 +28,7 @@ export class GetListBlogUseCase implements IUseCase<GetListBlogInputDto, GetList
   }
 
   async execute(): Promise<GetListBlogOutputDto> {
-    const blogs = await this.blogRepository.list()
+    const blogs = await this.blogRepository.findMany()
 
     const output = this.presentOutput(blogs)
 
